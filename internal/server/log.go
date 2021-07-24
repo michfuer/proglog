@@ -12,17 +12,6 @@ type Log struct {
 	records []Record
 }
 
-type Record struct {
-	// Tag strings can be defined on struct fields. The key usually denotes the package
-	// that the subsequent "value" is for. So 'json' key is processed with the
-	// 'encoding/json' package.
-	Value []byte `json:"value"`
-	// uint64 is the set of all unsigned 64-bit integers
-	Offset uint64 `json:"offset"`
-}
-
-var ErrOffsetNotFound = fmt.Errorf("offset not found")
-
 // Recall that the & operator generates a pointer to it's operand.
 // The * operator denotes the pointer's underlying value.
 func NewLog() *Log {
@@ -49,3 +38,16 @@ func (c *Log) Read(offset uint64) (Record, error) {
 	}
 	return c.records[offset], nil
 }
+
+type Record struct {
+	// Tag strings can be defined on struct fields. The key usually denotes the package
+	// that the subsequent "value" is for. So 'json' key is processed with the
+	// 'encoding/json' package.
+	// Also the 'encoding/json' package encodes a slice of bytes ([]bytes) as a base64-encoded
+	// string. The records Value is a slice of bytes
+	Value []byte `json:"value"`
+	// uint64 is the set of all unsigned 64-bit integers
+	Offset uint64 `json:"offset"`
+}
+
+var ErrOffsetNotFound = fmt.Errorf("offset not found")

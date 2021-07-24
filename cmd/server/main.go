@@ -1,11 +1,12 @@
 package main
 
-import(
+import (
 	"log"
-	"github.com/travisjeffery/proglog/internal/server"
+
+	"github.com/michfuer/proglog/internal/server"
 )
 
 func main() {
 	srv := server.NewHTTPServer(":8080")
-	log.Fatal(srv.ListenAndServe()
+	log.Fatal(srv.ListenAndServe())
 }
